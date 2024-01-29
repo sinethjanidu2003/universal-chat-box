@@ -40,7 +40,12 @@ app.use(
  * 
  */
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST"]
+  }
+});
 const allRooms = new Set();
 
 
