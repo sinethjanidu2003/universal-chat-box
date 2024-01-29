@@ -124,7 +124,7 @@ function generateUserId(){
 
 
 function openSokcet(){
-    const socket = io('',{
+    const socket = io('https://chat-app-nh9d.onrender.com',{
         query :{roomId : userId}
     });
 
