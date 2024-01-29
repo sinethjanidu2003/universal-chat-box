@@ -307,11 +307,11 @@ function createCatWindow(){
         var button = document.createElement("button");
         button.className = "open-button";
         button.innerHTML = "👋 Chat";
+        button.onclick = openForm;
 
         var chatPopup = document.createElement("div");
         chatPopup.className = "chat-popup";
         chatPopup.id = "myForm";
-        chatPopup.onclick = openForm;
 
         var card = document.createElement("div");
         card.className = "card mt-5 card-chat";
