@@ -157,7 +157,7 @@ function openSokcet(){
     createRobotInputs("Connecting to an Agent , Estimated 5 seconds....");
 
     sokcetConnection = socket;
-    socket.emit('room-access',userId,name);
+    socket.emit('room-access',userId);
     return socket;
 }
 
