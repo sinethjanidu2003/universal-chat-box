@@ -49,11 +49,12 @@ io.on('connection', (socket) => {
 
 
   const roomId = socket.handshake.query.roomId;
-
+    console.log(roomId);
 
   socket.on('room-access', (userId) => {
     socket.join(userId);
     allRooms.add(userId);
+       console.log("room Access Done");
     io.emit('admin-allRooms', Array.from(allRooms));
   });
 
