@@ -1,7 +1,7 @@
 /**
  * Getting the main url to load the sokcet
  */
-const mainUrl = window.location.protocol + '//' + window.location.hostname + ":80";
+const mainUrl = window.location.protocol + '//' + window.location.hostname;
 
 /*
 * Creaing the Sokcet connection & importing the required Scripts
@@ -14,21 +14,21 @@ if (typeof jQuery === 'undefined') {
 
 
 const scriptSocketIO = document.createElement('script');
-scriptSocketIO.src = '/socket.io/socket.io.js';
+scriptSocketIO.src = mainUrl +'/socket.io/socket.io.js';
 document.head.appendChild(scriptSocketIO);
 
 
 const chatScript = document.createElement('script');
-chatScript.src = '/js/chatScript.js';
+chatScript.src =mainUrl+ '/js/chatScript.js';
 document.head.appendChild(chatScript);
 
 const chatScript1= document.createElement('script');
-chatScript1.src = '/js/chatModel.js';
+chatScript1.src = mainUrl+'/js/chatModel.js';
 document.head.appendChild(chatScript1);
 
 var linkElement = document.createElement("link");
 linkElement.rel = "stylesheet";
-linkElement.href = "/css/index.css";
+linkElement.href = mainUrl + "/css/index.css";
 
 // Append the link element to the head of the document
 document.head.appendChild(linkElement);
