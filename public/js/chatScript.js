@@ -311,7 +311,7 @@ function createCatWindow(){
         var chatPopup = document.createElement("div");
         chatPopup.className = "chat-popup";
         chatPopup.id = "myForm";
-        ccloseIcon.onclick = openForm;
+        chatPopup.onclick = openForm;
 
         var card = document.createElement("div");
         card.className = "card mt-5 card-chat";
