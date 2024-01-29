@@ -33,3 +33,27 @@ ChatAnywhere is a lightweight and customizable chat application that allows you 
 ## Admin Preview
 ![Screenshot 2024-01-29 010402](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/f8bbee7d-01d6-4313-8068-6c9a2f14df47)
 
+
+
+### License
+
+This project is licensed under the [MIT License](LICENSE). See the [LICENSE](LICENSE) file for details.
+
+### Contribution
+
+You are welcome to contribute to this project. Before you start, please read and adhere to our [Code of Conduct](CONTRIBUTING.md).
+#### How to Contribute
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix: `git checkout -b feature-name`.
+3. Make your changes and commit them: `git commit -m 'Description of your changes'`.
+4. Push to the branch: `git push origin feature-name`.
+5. Submit a pull request.
+
+### Credits
+
+If you use or refer to this project, please provide proper attribution:
+
+**© [Sineth Janidu](https://github.com/sinethjanidu2003) - [Project Name](https://github.com/sinethjanidu2003/universal-chat-box)**
+
+Thank you for respecting the terms of the license and contributing responsibly.
