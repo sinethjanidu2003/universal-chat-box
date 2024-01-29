@@ -160,6 +160,14 @@ function openSokcet(){
     return socket;
 }
 
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
 function getResponse(userInput) {
     const lowerCaseInput = userInput.toLowerCase();
   
@@ -303,6 +311,7 @@ function createCatWindow(){
         var chatPopup = document.createElement("div");
         chatPopup.className = "chat-popup";
         chatPopup.id = "myForm";
+        ccloseIcon.onclick = openForm;
 
         var card = document.createElement("div");
         card.className = "card mt-5 card-chat";
