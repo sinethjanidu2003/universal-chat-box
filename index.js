@@ -10,7 +10,6 @@ const cors = require('cors');
  */
 const socketIo = require('socket.io');
 const http = require('http');
-app.use(cors());
 
 
 /**
@@ -22,6 +21,7 @@ const app = express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 //app Settings
+app.use(cors());
 app.use(urlencodedParser);
 app.use(express.static(__dirname + "/public"));
 app.set('view engine','ejs');
