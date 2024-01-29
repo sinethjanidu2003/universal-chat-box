@@ -1,7 +1,18 @@
 /**
  * Getting the main url to load the sokcet
  */
-const mainUrl = window.location.protocol + '//' + window.location.hostname;
+
+// Get the script element
+var scriptElement = document.currentScript || (function() {
+  var scripts = document.getElementsByTagName('script');
+  return scripts[scripts.length - 1];
+})();
+
+// Get the URL of the script
+var scriptUrl = scriptElement.src;
+
+// Remove "mainScript.js" from the URL
+const mainUrl =  scriptUrl.replace(/\/js\/mainScript\.js$/, '');
 
 /*
 * Creaing the Sokcet connection & importing the required Scripts
