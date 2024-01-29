@@ -299,7 +299,6 @@ function createCatWindow(){
         var button = document.createElement("button");
         button.className = "open-button";
         button.innerHTML = "👋 Chat";
-        button.onclick = openForm;
 
         var chatPopup = document.createElement("div");
         chatPopup.className = "chat-popup";
