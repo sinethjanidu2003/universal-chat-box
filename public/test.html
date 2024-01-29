@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="css/admin.css">
+
+
+</head>
+<body>
+    <input hidden id="seletcted-user"/>
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card chat-app">
+                    <div id="plist" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0" id="roomList">
+                           
+                        </ul>
+                    </div>
+                    <div class="chat" id="chat-window">
+                        <div class="chat-header clearfix">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                    </a>
+                                    <div class="chat-about">
+                                        <h6 id="name" class="m-b-0">No Active Connections</h6>
+                                        <small id="email"></small>
+                                        <small id="phone"></small>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 hidden-sm text-right">
+                                    <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                                    <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                                    <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-history" id="ul-holder">
+                            <ul class="m-b-0" id="messages">
+                                
+                            </ul>
+                        </div>
+                        <div class="chat-message clearfix">
+                            <div class="input-group mb-0">
+                                <div id="btn" class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-send"></i></span>
+                                </div>
+                                <input type="text" id="message-input" class="form-control" placeholder="Enter text here...">                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+    <script>
+         var messagesPanel = document.getElementById("messages");
+        var nameIn = document.getElementById('name');
+        var emailIn = document.getElementById('email');
+        var phoneIn = document.getElementById('phone');
+        const ulHolder = document.getElementById('ul-holder');
+
+        const socket = io();
+        socket.on('admin-allRooms', function(rooms) {
+           
+            document.getElementById('roomList').innerHTML = "";
+         rooms.forEach(function(room) {
+
+
+            // Create the list item element
+            var listItem = document.createElement("li");
+            listItem.classList.add("clearfix", "active");
+
+            listItem.onclick = function() {
+                openConnection(room);
+            };
+            // Create the image element
+            var img = document.createElement("img");
+            img.setAttribute("src", "https://bootdey.com/img/Content/avatar/avatar2.png");
+            img.setAttribute("alt", "avatar");
+
+            // Create the about div
+            var aboutDiv = document.createElement("div");
+            aboutDiv.classList.add("about");
+
+            // Create the name div
+            var nameDiv = document.createElement("div");
+            nameDiv.classList.add("name");
+            nameDiv.textContent = room;
+
+            // Create the status div
+            var statusDiv = document.createElement("div");
+            statusDiv.classList.add("status");
+            statusDiv.innerHTML = '<i class="fa fa-circle online"></i> online';
+
+            // Append the name and status divs to the about div
+            aboutDiv.appendChild(nameDiv);
+            aboutDiv.appendChild(statusDiv);
+
+            // Append the image and about div to the list item
+            listItem.appendChild(img);
+            listItem.appendChild(aboutDiv);
+            
+         document.getElementById('roomList').appendChild(listItem);
+        });
+        });
+
+        socket.on('message', function(data) {
+            const { type, message } = data;
+            if(type=='admin'){
+                createAdminInputs(message);
+            }else{
+                createUserMessage(message);
+            }
+
+            window.scrollTo(0, document.body.scrollHeight);
+
+        });
+
+        socket.on('private-message',function(data){
+            const {name,email,phone} = data;
+            emailIn.innerHTML = email;
+            nameIn.innerHTML = name;
+            phoneIn.innerHTML = phone;
+
+        })
+
+
+        function openConnection(userId){
+            console.log('Opening');
+            socket.emit('room-access',userId);
+            socket.emit('sendMessage', { userId: userId, message : {type : "user" ,message : "Admin Joined!.."} });
+            document.getElementById("seletcted-user").value = userId;
+
+            var Parent = document.getElementById(userId);
+            if(!Parent){
+                createUlHolder(userId);
+                console.log("created");
+            }
+            messagesPanel = document.getElementById(userId);
+            var advancedUlElements = document.querySelectorAll(".advanced-ul");
+
+            // Check if any elements were found before attempting to modify their styles
+            if (advancedUlElements.length > 0) {
+                // Iterate through each element and set the display property to "none"
+                advancedUlElements.forEach(function(element) {
+                    element.style.display = "none";
+                });
+            }
+            messagesPanel.style.display = 'block';
+
+
+
+            
+        }
+
+
+        btn.onclick = ()=>{
+    
+        const me = document.getElementById("message-input");
+        const roomId = document.getElementById("seletcted-user").value;
+        socket.emit('sendMessage', { userId: roomId, message : {type : "admin" ,message : me.value} });
+        document.getElementById("message-input").value = "";
+        }
+
+
+        window.addEventListener("keydown", function(event) {
+    // Check if the key pressed is "Enter"
+    if (event.key === "Enter") {
+        const me = document.getElementById("message-input");
+        const roomId = document.getElementById("seletcted-user").value;
+        socket.emit('sendMessage', { userId: roomId, message : {type : "admin" ,message : me.value} });
+        document.getElementById("message-input").value = "";
+    }
+});
+
+
+
+        function createUserMessage(message){
+                    // Create li element
+        var liElement = document.createElement("li");
+        liElement.className = "clearfix";
+
+        // Create div for message data
+        var messageDataDiv = document.createElement("div");
+        messageDataDiv.className = "message-data";
+
+        // Create span for message data time
+        var messageDataTimeSpan = document.createElement("span");
+        messageDataTimeSpan.className = "message-data-time";
+        messageDataTimeSpan.textContent = getCurrentTime(); // Using a function to get the current time
+
+        // Append message data time to message data div
+        messageDataDiv.appendChild(messageDataTimeSpan);
+
+        // Create div for my message
+        var myMessageDiv = document.createElement("div");
+        myMessageDiv.className = "message my-message";
+        myMessageDiv.textContent = message;
+
+        // Append message data div and my message div to li element
+        liElement.appendChild(messageDataDiv);
+        liElement.appendChild(myMessageDiv);
+
+
+                    
+        messagesPanel.appendChild(liElement);
+
+    }
+
+    function getCurrentTime() {
+    var currentDate = new Date();
+    var hours = ('0' + currentDate.getHours()).slice(-2);
+    var minutes = ('0' + currentDate.getMinutes()).slice(-2);
+    var amPm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return hours + ':' + minutes + ' ' + amPm;
+}
+
+function createUlHolder(id){
+    const ul = document.createElement('ul');
+    ul.id = id;
+    ul.className = "advanced-ul";
+    ul.style.display = 'none';
+    ulHolder.appendChild(ul);
+}
+
+function createAdminInputs(message){
+    var liElement = document.createElement("li");
+    liElement.className = "clearfix";
+
+    // Create div for message data with text-right class
+    var messageDataDiv = document.createElement("div");
+    messageDataDiv.className = "message-data text-right";
+
+    // Create span for message data time
+    var messageDataTimeSpan = document.createElement("span");
+    messageDataTimeSpan.className = "message-data-time";
+    messageDataTimeSpan.textContent = "10:10 AM, Today";
+
+    // Create img element for avatar
+    var avatarImg = document.createElement("img");
+    avatarImg.src = "https://bootdey.com/img/Content/avatar/avatar7.png";
+    avatarImg.alt = "avatar";
+
+    // Append message data time and avatar to message data div
+    messageDataDiv.appendChild(messageDataTimeSpan);
+    messageDataDiv.appendChild(avatarImg);
+
+    // Create div for other message with float-right class
+    var otherMessageDiv = document.createElement("div");
+    otherMessageDiv.className = "message other-message float-right";
+    otherMessageDiv.textContent = message;
+
+    // Append message data div and other message div to li element
+    liElement.appendChild(messageDataDiv);
+    liElement.appendChild(otherMessageDiv);
+    messagesPanel.appendChild(liElement);
+}
+
+    </script>
+</body>
+</html>
