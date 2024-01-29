@@ -3,12 +3,15 @@ const router = require("./routes/route.js");
 const path = require("path"); 
 const bodyParser = require('body-parser');  
 const session = require('express-session');
+const cors = require('cors');
 
 /**
  * Server Dependencies
  */
 const socketIo = require('socket.io');
 const http = require('http');
+app.use(cors());
+
 
 /**
  * Host this in your sever, and use this chat box in any website with the js and css.
