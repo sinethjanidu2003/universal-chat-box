@@ -100,7 +100,7 @@ router.get('/view-allRooms',(req,res)=>{
   res.sendFile(__dirname+'/public/test.html');
 });
 
-server.listen(80, () => {
+server.listen(3000, () => {
   console.log('Server listening on port 80');
 });
 
