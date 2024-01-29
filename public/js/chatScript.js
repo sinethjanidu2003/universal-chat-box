@@ -136,7 +136,8 @@ function openSokcet(){
     var check = 0;
 
     socket.on('message', function(data) {
-        const { type, message } = data
+        const { type, message } = data;
+         console.log(data);
         if(type == 'admin'){
             createAdminInputs(message);
         }
@@ -295,6 +296,7 @@ function sendMessage(){
     if(sokcetConnection == null){
         connectToServer(null,me.value);
     }else{
+        console.log("Emittinng Message");
         sokcetConnection.emit('sendMessage', { userId: userId, message : {type : "user" ,message : me.value} });
     }
     me.value = "";
