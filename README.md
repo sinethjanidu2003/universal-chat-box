@@ -15,7 +15,7 @@ ChatAnywhere is a lightweight and customizable chat application that allows you 
 1. Include the this script in your HTML file. You can use the following CDN link:
 
    ```html
-   <script src="https://chat-app-nh9d.onrender.com/js/chatScript.js"></script>
+   <script src="https://chat-app-nh9d.onrender.com/js/mainScript.js"></script>
 
 2. You can see sthe messages here
 
