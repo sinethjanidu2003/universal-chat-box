@@ -29,3 +29,7 @@ ChatAnywhere is a lightweight and customizable chat application that allows you 
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | ![Main Preview](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/0b1958ba-4967-44b9-a754-0e9d3ec0fdd5) | ![Chat Preview](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/df7c14ed-a952-438c-8ce1-119ac19dfafc) | ![Chat Preview](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/032c4229-2796-43d9-8160-42f02686d652) | ![Chat Preview](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/f55560a5-be66-4a9f-acbc-10cd4d1da2c0) | ![Chat Preview](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/b8897c2e-f554-4e1e-aac9-49dbe7eeddaa) |![Chat Preview]
 
+
+## Admin Preview
+![Screenshot 2024-01-29 010402](https://github.com/sinethjanidu2003/universal-chat-box/assets/63631182/f8bbee7d-01d6-4313-8068-6c9a2f14df47)
+
